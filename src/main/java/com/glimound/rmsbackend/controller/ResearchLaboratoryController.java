@@ -1,14 +1,12 @@
 package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.ResearchLaboratoryDto;
-import com.glimound.rmsbackend.pojo.ResearchLaboratory;
 import com.glimound.rmsbackend.service.ResearchLaboratoryService;
+import com.glimound.rmsbackend.vo.ResearchLaboratoryListVo;
 import com.glimound.rmsbackend.vo.ResearchLaboratoryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/research-laboratory")
@@ -19,12 +17,13 @@ public class ResearchLaboratoryController {
     private ResearchLaboratoryService researchLaboratoryService;
 
     /**
-     * 查询所有研究室的信息
+     * 分页查询所有研究室的信息
      */
     @GetMapping
-    public CommonResult<List<ResearchLaboratory>> listSecretary(Integer limit, Integer offset) {
-        List<ResearchLaboratory> researchLaboratoryList = researchLaboratoryService.listResearchLaboratory(limit, offset);
-        return new CommonResult<>(researchLaboratoryList);
+    public CommonResult<ResearchLaboratoryListVo> listSecretary(@RequestParam(defaultValue = "1") Integer page,
+                                                                @RequestParam(defaultValue = "10") Integer pageSize) {
+        ResearchLaboratoryListVo researchLaboratoryListVo = researchLaboratoryService.listResearchLaboratory(page, pageSize);
+        return new CommonResult<>(researchLaboratoryListVo);
     }
 
     /**

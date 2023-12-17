@@ -14,5 +14,5 @@ public class CommonResult<T> {
     /**
      * 数据封装
      */
-    private T data;
+    protected T data;
 }

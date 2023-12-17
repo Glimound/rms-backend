@@ -1,9 +1,12 @@
 package com.glimound.rmsbackend.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.glimound.rmsbackend.dto.ResearchLaboratoryDto;
 import com.glimound.rmsbackend.mapper.ResearchLaboratoryMapper;
 import com.glimound.rmsbackend.pojo.*;
 import com.glimound.rmsbackend.service.ResearchLaboratoryService;
+import com.glimound.rmsbackend.vo.ResearchLaboratoryListVo;
 import com.glimound.rmsbackend.vo.ResearchLaboratoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +21,14 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
     private ResearchLaboratoryMapper researchLaboratoryMapper;
 
     /**
-     * 查询所有研究室的信息
+     * 分页查询所有研究室的信息
      */
     @Override
-    public List<ResearchLaboratory> listResearchLaboratory(Integer limit, Integer offset) {
-        return researchLaboratoryMapper.selectAll(limit, offset);
+    public ResearchLaboratoryListVo listResearchLaboratory(Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<ResearchLaboratory> researchLaboratoryList = researchLaboratoryMapper.selectAll();
+        Page<ResearchLaboratory> p = (Page<ResearchLaboratory>) researchLaboratoryList;
+        return new ResearchLaboratoryListVo(p.getResult(), p.getTotal());
     }
 
     /**

@@ -9,12 +9,7 @@ import java.util.List;
 @Mapper
 public interface SecretaryMapper {
 
-    /**
-     * 分页查询秘书信息
-     * @param limit 显示条数
-     * @param offset 起始条数
-     */
-    List<Secretary> selectAll(Integer limit, Integer offset);
+    List<Secretary> selectAll();
 
     /**
      * 查询单个秘书信息及其所任职的各实验室

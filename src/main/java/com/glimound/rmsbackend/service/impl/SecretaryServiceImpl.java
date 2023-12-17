@@ -1,10 +1,13 @@
 package com.glimound.rmsbackend.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.glimound.rmsbackend.dto.SecretaryDto;
 import com.glimound.rmsbackend.mapper.ResearchLaboratoryMapper;
 import com.glimound.rmsbackend.mapper.SecretaryMapper;
 import com.glimound.rmsbackend.pojo.Secretary;
 import com.glimound.rmsbackend.service.SecretaryService;
+import com.glimound.rmsbackend.vo.SecretaryListVo;
 import com.glimound.rmsbackend.vo.SecretaryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +25,14 @@ public class SecretaryServiceImpl implements SecretaryService {
     private ResearchLaboratoryMapper researchLaboratoryMapper;
 
     /**
-     * 查询所有秘书的信息
+     * 分页查询所有秘书的信息
      */
     @Override
-    public List<Secretary> listSecretary(Integer limit, Integer offset) {
-        return secretaryMapper.selectAll(limit, offset);
+    public SecretaryListVo listSecretary(Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<Secretary> secretaryList = secretaryMapper.selectAll();
+        Page<Secretary> p = (Page<Secretary>) secretaryList;
+        return new SecretaryListVo(p.getResult(), p.getTotal());
     }
 
     /**

@@ -1,9 +1,7 @@
 package com.glimound.rmsbackend.mapper;
 
 import com.glimound.rmsbackend.pojo.ResearchLaboratory;
-import com.glimound.rmsbackend.pojo.Secretary;
 import com.glimound.rmsbackend.vo.ResearchLaboratoryVo;
-import com.glimound.rmsbackend.vo.SecretaryVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -11,12 +9,7 @@ import java.util.List;
 @Mapper
 public interface ResearchLaboratoryMapper {
 
-    /**
-     * 分页查询研究室信息
-     * @param limit 显示条数
-     * @param offset 起始条数
-     */
-    List<ResearchLaboratory> selectAll(Integer limit, Integer offset);
+    List<ResearchLaboratory> selectAll();
 
     /**
      * 查询单个研究室信息及其秘书、主任、场地及科研人员

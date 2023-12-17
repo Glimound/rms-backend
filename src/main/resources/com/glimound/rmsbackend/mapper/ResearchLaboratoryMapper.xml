@@ -17,9 +17,6 @@
     <select id="selectAll" resultType="com.glimound.rmsbackend.pojo.ResearchLaboratory">
         select lab_name, research_direction, secretary_id
         from research_laboratory
-        <if test="limit != null and offset != null">
-            limit #{limit} offset #{offset}
-        </if>
     </select>
 
     <select id="selectByName" resultMap="researchLab_fullInfo_Map">

@@ -1,14 +1,12 @@
 package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.SecretaryDto;
-import com.glimound.rmsbackend.pojo.Secretary;
 import com.glimound.rmsbackend.service.SecretaryService;
+import com.glimound.rmsbackend.vo.SecretaryListVo;
 import com.glimound.rmsbackend.vo.SecretaryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/secretaries")
@@ -19,12 +17,13 @@ public class SecretaryController {
     private SecretaryService secretaryService;
 
     /**
-     * 查询所有秘书的信息
+     * 分页查询所有秘书的信息
      */
     @GetMapping
-    public CommonResult<List<Secretary>> listSecretary(Integer limit, Integer offset) {
-        List<Secretary> secretaryList = secretaryService.listSecretary(limit, offset);
-        return new CommonResult<>(secretaryList);
+    public CommonResult<SecretaryListVo> listSecretary(@RequestParam(defaultValue = "1") Integer page,
+                                                       @RequestParam(defaultValue = "10") Integer pageSize) {
+        SecretaryListVo secretaryListVo = secretaryService.listSecretary(page, pageSize);
+        return new CommonResult<>(secretaryListVo);
     }
 
     /**
