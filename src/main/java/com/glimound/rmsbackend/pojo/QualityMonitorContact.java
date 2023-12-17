@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QualityMonitorContact {
-    int contactId;
-    String qualityMonitorName;
+    private Integer contactId;
+    private String qualityMonitorName;
 }

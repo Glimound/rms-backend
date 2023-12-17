@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CollaboratorContact {
-    int contactId;
-    String collaboratorName;
+    private Integer contactId;
+    private String collaboratorName;
 }

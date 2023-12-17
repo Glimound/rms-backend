@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Director {
-    String labName;
-    String researcherId;
-    LocalDate appointmentDate;
-    LocalDate termDate;
+    private String labName;
+    private String researcherId;
+    private LocalDate appointmentDate;
+    private LocalDate termDate;
 }

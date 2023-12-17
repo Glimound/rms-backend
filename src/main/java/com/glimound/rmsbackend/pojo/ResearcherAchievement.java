@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearcherAchievement {
-    int achievementId;
-    String researcherId;
-    int rank;
+    private Integer achievementId;
+    private String researcherId;
+    private Integer rank;
 }

@@ -11,13 +11,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearchProject {
-    String projectId;
-    String projectName;
-    String projectContent;
-    BigDecimal funding;
-    LocalDate startDate;
-    LocalDate completeDate;
-    int superintendentId;
-    String clientName;
-    String qualityMonitorName;
+    private String projectId;
+    private String projectName;
+    private String projectContent;
+    private BigDecimal funding;
+    private LocalDate startDate;
+    private LocalDate completeDate;
+    private Integer superintendentId;
+    private String clientName;
+    private String qualityMonitorName;
 }

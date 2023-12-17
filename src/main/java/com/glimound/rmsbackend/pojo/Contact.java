@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Contact {
-    long contactId;
-    String name;
-    String officePhone;
-    String mobilePhone;
-    String email;
+    private Long contactId;
+    private String name;
+    private String officePhone;
+    private String mobilePhone;
+    private String email;
 }

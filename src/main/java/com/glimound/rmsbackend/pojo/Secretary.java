@@ -10,10 +10,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Secretary {
-    String secretaryId;
-    String name;
-    int gender;
-    LocalDate birth;
-    LocalDate employDate;
-    String remit;
+    private String secretaryId;
+    private String name;
+    private Integer gender;
+    private LocalDate birth;
+    private LocalDate employDate;
+    private String remit;
 }

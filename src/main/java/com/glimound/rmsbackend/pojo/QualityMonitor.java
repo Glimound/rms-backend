@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QualityMonitor {
-    String qualityMonitorName;
-    String address;
-    int superintendentId;
+    private String qualityMonitorName;
+    private String address;
+    private Integer superintendentId;
 }

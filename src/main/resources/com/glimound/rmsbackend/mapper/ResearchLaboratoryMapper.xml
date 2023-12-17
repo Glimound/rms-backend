@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glimound.rmsbackend.mapper.ResearchLaboratoryMapper">
+
+    <!--  研究室和拥有的科研人员、办公场地、主任、秘书的信息  -->
+    <resultMap id="researchLab_fullInfo_Map" type="com.glimound.rmsbackend.vo.ResearchLaboratoryVo">
+        <result column="lab_name" property="labName"/>
+        <result column="research_direction" property="researchDirection"/>
+        <association property="secretary" autoMapping="true"/>
+        <association property="director" autoMapping="true"/>
+        <collection property="officeSpaceList" ofType="com.glimound.rmsbackend.pojo.OfficeSpace" autoMapping="true"/>
+        <collection property="scientificResearcherList" ofType="com.glimound.rmsbackend.pojo.ScientificResearcher" autoMapping="true"/>
+    </resultMap>
+
+    <select id="selectAll" resultType="com.glimound.rmsbackend.pojo.ResearchLaboratory">
+        select lab_name, research_direction, secretary_id
+        from research_laboratory
+        <if test="limit != null and offset != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+
+    <select id="selectByName" resultMap="researchLab_fullInfo_Map">
+        select
+            rl.lab_name, rl.research_direction,
+            s.secretary_id, s.name, s.gender, s.birth, employ_date, remit,
+            d.lab_name, d.researcher_id, appointment_date, term_date,
+            os.site_id, space_area, address, os.lab_name,
+            sr.researcher_id, sr.name, sr.gender, sr.birth, title, sr.research_direction, sr.lab_name
+        from research_laboratory rl
+            left join secretary s on rl.secretary_id = s.secretary_id
+            left join director d on rl.lab_name = d.lab_name
+            left join office_space os on rl.lab_name = os.lab_name
+            left join scientific_researcher sr on rl.lab_name = sr.lab_name
+        where rl.lab_name = #{labName}
+    </select>
+
+    <update id="updateLabsSecretary">
+        update research_laboratory
+        set secretary_id = #{secretaryId} where lab_name in
+        <foreach collection="labNameList" item="labName" separator="," open="(" close=")">
+            #{labName}
+        </foreach>
+    </update>
+
+    <update id="clearLabsSecretary">
+        update research_laboratory
+        set secretary_id = null where secretary_id = #{secretaryId}
+    </update>
+</mapper>

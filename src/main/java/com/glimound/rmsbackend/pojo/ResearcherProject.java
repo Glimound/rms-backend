@@ -11,10 +11,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearcherProject {
-    String projectId;
-    String researcherId;
-    LocalDate joinDate;
-    int workHour;
-    BigDecimal availableFunding;
-    String subtopicNum;
+    private String projectId;
+    private String researcherId;
+    private LocalDate joinDate;
+    private Integer workHour;
+    private BigDecimal availableFunding;
+    private String subtopicNum;
 }

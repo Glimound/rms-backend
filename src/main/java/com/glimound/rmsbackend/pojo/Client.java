@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Client {
-    String clientName;
-    String address;
-    int superintendentId;
+    private String clientName;
+    private String address;
+    private Integer superintendentId;
 }

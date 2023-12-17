@@ -11,11 +11,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Subtopic {
-    String projectId;
-    String subtopicNum;
-    String subtopicContent;
-    BigDecimal availableFunding;
-    LocalDate completeDeadlineDate;
-    String technicalIndicator;
-    int superintendentId;
+    private String projectId;
+    private String subtopicNum;
+    private String subtopicContent;
+    private BigDecimal availableFunding;
+    private LocalDate completeDeadlineDate;
+    private String technicalIndicator;
+    private Integer superintendentId;
 }

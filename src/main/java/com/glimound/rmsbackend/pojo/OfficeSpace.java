@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfficeSpace {
-    String siteId;
-    double space_area;
-    String address;
-    String labName;
+    private String siteId;
+    private Double space_area;
+    private String address;
+    private String labName;
 }

@@ -4,3 +4,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/rms_db
     username: postgres
     password: "030519"
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

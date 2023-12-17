@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Collaborator {
-    String collaboratorName;
-    String address;
-    int superintendentId;
+    private String collaboratorName;
+    private String address;
+    private Integer superintendentId;
 }

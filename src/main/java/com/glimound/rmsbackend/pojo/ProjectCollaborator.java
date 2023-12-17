@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectCollaborator {
-    String projectId;
-    String collaboratorName;
+    private String projectId;
+    private String collaboratorName;
 }

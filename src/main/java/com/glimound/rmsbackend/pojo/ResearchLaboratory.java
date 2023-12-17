@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearchLaboratory {
-    String labName;
-    String researchDirection;
-    String secretaryId;
+    private String labName;
+    private String researchDirection;
+    private String secretaryId;
 }
