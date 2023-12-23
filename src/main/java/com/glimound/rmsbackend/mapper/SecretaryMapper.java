@@ -16,9 +16,6 @@ public interface SecretaryMapper {
      */
     SecretaryVo selectById(String secretaryId);
 
-    @Select("select count(*) from secretary")
-    int count();
-
     @Insert("insert into secretary (secretary_id, name, gender, birth, employ_date, remit) values " +
             "(#{secretaryId}, #{name}, #{gender}, #{birth}, #{employDate}, #{remit})")
     void insert(Secretary secretary);

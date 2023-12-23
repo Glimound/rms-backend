@@ -16,9 +16,6 @@ public interface ResearchLaboratoryMapper {
      */
     ResearchLaboratoryVo selectByName(String labName);
 
-    @Select("select count(*) from research_laboratory")
-    int count();
-
     @Insert("insert into research_laboratory (lab_name, research_direction, secretary_id) " +
             "values (#{labName},#{researchDirection},#{secretaryId})")
     void insert(ResearchLaboratory researchLaboratory);

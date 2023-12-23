@@ -36,6 +36,7 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
      */
     @Override
     public ResearchLaboratoryVo getResearchLaboratoryFullInfo(String labName) {
+        // TODO: 查询单个功能待验证
         return researchLaboratoryMapper.selectByName(labName);
     }
 
