@@ -6,7 +6,7 @@ import com.glimound.rmsbackend.vo.ResearchLaboratoryVo;
 
 public interface ResearchLaboratoryService {
     /**
-     * 查询所有研究室的信息
+     * 分页查询所有研究室的信息
      */
     ResearchLaboratoryListVo listResearchLaboratory(Integer page, Integer pageSize);
 

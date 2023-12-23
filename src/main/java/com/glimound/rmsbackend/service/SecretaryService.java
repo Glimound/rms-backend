@@ -6,7 +6,7 @@ import com.glimound.rmsbackend.vo.SecretaryVo;
 
 public interface SecretaryService {
     /**
-     * 查询所有秘书的信息
+     * 分页查询所有秘书的信息
      */
     SecretaryListVo listSecretary(Integer page, Integer pageSize);
 

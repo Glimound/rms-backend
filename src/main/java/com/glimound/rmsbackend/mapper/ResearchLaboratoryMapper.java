@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface ResearchLaboratoryMapper {
 
+    @Select("select lab_name, research_direction, secretary_id from research_laboratory")
     List<ResearchLaboratory> selectAll();
 
     /**

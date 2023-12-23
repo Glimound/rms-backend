@@ -16,3 +16,5 @@ public class CommonResult<T> {
      */
     protected T data;
 }
+
+// TODO: 全局todo：检查controller接受的dto是否存在字段为空，报错

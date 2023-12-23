@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface SecretaryMapper {
 
+    @Select("select secretary_id, name, gender, birth, employ_date, remit from secretary")
     List<Secretary> selectAll();
 
     /**
@@ -23,7 +24,7 @@ public interface SecretaryMapper {
     @Delete("delete from secretary where secretary_id = #{secretaryId}")
     void delete(String secretaryId);
 
-    @Update("update secretary set secretary_id = #{secretary.secretaryId}, name = #{secretary.name}, gender = #{secretary.gender}, " +
-            "birth = #{secretary.birth}, employ_date = #{secretary.employDate}, remit = #{secretary.remit} where secretary_id = #{oldSecretaryId}")
-    void update(String oldSecretaryId, Secretary secretary);
+    @Update("update secretary set secretary_id = #{s.secretaryId}, name = #{s.name}, gender = #{s.gender}, " +
+            "birth = #{s.birth}, employ_date = #{s.employDate}, remit = #{s.remit} where secretary_id = #{oldSecretaryId}")
+    void update(String oldSecretaryId, Secretary s);
 }

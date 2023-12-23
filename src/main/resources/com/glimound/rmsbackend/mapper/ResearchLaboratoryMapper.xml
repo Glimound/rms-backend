@@ -14,11 +14,6 @@
         <collection property="scientificResearcherList" ofType="com.glimound.rmsbackend.pojo.ScientificResearcher" autoMapping="true"/>
     </resultMap>
 
-    <select id="selectAll" resultType="com.glimound.rmsbackend.pojo.ResearchLaboratory">
-        select lab_name, research_direction, secretary_id
-        from research_laboratory
-    </select>
-
     <select id="selectByName" resultMap="researchLab_fullInfo_Map">
         select
             rl.lab_name, rl.research_direction,

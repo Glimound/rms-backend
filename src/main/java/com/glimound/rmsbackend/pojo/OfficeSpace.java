@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OfficeSpace {
     private String siteId;
-    private Double space_area;
+    private Double spaceArea;
     private String address;
     private String labName;
 }
