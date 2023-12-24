@@ -1,6 +1,7 @@
 package com.glimound.rmsbackend.mapper;
 
 import com.glimound.rmsbackend.pojo.ResearchLaboratory;
+import com.glimound.rmsbackend.pojo.ScientificResearcher;
 import com.glimound.rmsbackend.vo.ResearchLaboratoryVo;
 import org.apache.ibatis.annotations.*;
 
@@ -40,4 +41,8 @@ public interface ResearchLaboratoryMapper {
      * @param secretaryId 指定的秘书工号
      */
     void clearLabsSecretary(String secretaryId);
+
+//    TODO: 选出归属于该实验室的学生
+//    @Select("select")
+//    List<ScientificResearcher> selectResearchersFromLab(String labName);
 }
