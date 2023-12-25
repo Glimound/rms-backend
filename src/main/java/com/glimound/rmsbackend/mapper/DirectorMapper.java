@@ -12,8 +12,8 @@ public interface DirectorMapper {
             "(#{labName}, #{researcherId}, #{appointmentDate}, #{termDate})")
     void insert(Director director);
 
-    @Delete("delete from director where lab_name = #{labName} and researcher_id = #{researcherId}")
-    void delete(String labName, String researcherId);
+    @Delete("delete from director where lab_name = #{labName}")
+    void delete(String labName);
 
     @Update("update director set lab_name = #{d.labName}, researcher_id = #{d.researcherId}, " +
             "appointment_date = #{d.appointmentDate}, term_date = #{d.termDate} " +

@@ -24,4 +24,18 @@ public interface OfficeSpaceMapper {
     @Update("update office_space set site_id = #{os.siteId}, space_area = #{os.spaceArea}, address = #{os.address}, " +
             "lab_name = #{os.labName} where site_id = #{oldSiteId}")
     void update(String oldSiteId, OfficeSpace os);
+
+    /**
+     * 将特定办公场地所属的研究室改为指定的研究室
+     * @param labName 指定的研究室
+     * @param siteIdList 需修改的办公场地的id
+     */
+    void updateOfficeSpacesLab(String labName, List<String> siteIdList);
+
+    /**
+     * 清除办公场地归属的特定研究室
+     * @param labName 指定的研究室
+     */
+    @Update("update office_space set lab_name = null where lab_name = #{labName}")
+    void clearOfficeSpacesLab(String labName);
 }

@@ -28,4 +28,18 @@ public interface ScientificResearcherMapper {
             "birth = #{sr.birth}, title = #{sr.title}, research_direction = #{sr.researchDirection}, lab_name = #{sr.labName} " +
             "where researcher_id = #{oldResearcherId}")
     void update(String oldResearcherId, ScientificResearcher sr);
+
+    /**
+     * 将特定科研人员所属的研究室改为指定的研究室
+     * @param labName 指定的研究室
+     * @param researcherIdList 需修改的科研人员的id
+     */
+    void updateResearchersLab(String labName, List<String> researcherIdList);
+
+    /**
+     * 清除科研人员归属的特定研究室
+     * @param labName 指定的研究室
+     */
+    @Update("update scientific_researcher set lab_name = null where lab_name = #{labName}")
+    void clearResearchersLab(String labName);
 }

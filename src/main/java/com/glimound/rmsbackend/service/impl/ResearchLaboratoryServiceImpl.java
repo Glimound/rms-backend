@@ -3,7 +3,10 @@ package com.glimound.rmsbackend.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.glimound.rmsbackend.dto.ResearchLaboratoryDto;
+import com.glimound.rmsbackend.mapper.DirectorMapper;
+import com.glimound.rmsbackend.mapper.OfficeSpaceMapper;
 import com.glimound.rmsbackend.mapper.ResearchLaboratoryMapper;
+import com.glimound.rmsbackend.mapper.ScientificResearcherMapper;
 import com.glimound.rmsbackend.pojo.*;
 import com.glimound.rmsbackend.service.ResearchLaboratoryService;
 import com.glimound.rmsbackend.vo.ResearchLaboratoryListVo;
@@ -19,6 +22,12 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
 
     @Autowired
     private ResearchLaboratoryMapper researchLaboratoryMapper;
+    @Autowired
+    private DirectorMapper directorMapper;
+    @Autowired
+    private ScientificResearcherMapper scientificResearcherMapper;
+    @Autowired
+    private OfficeSpaceMapper officeSpaceMapper;
 
     /**
      * 分页查询所有研究室的信息
@@ -36,7 +45,6 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
      */
     @Override
     public ResearchLaboratoryVo getResearchLaboratoryFullInfo(String labName) {
-        // TODO: 查询单个功能待验证
         return researchLaboratoryMapper.selectByName(labName);
     }
 
@@ -48,11 +56,19 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
     public void addResearchLaboratoryFullInfo(ResearchLaboratoryDto dto) {
         ResearchLaboratory researchLaboratory = dto.getResearchLaboratory();
         Director director = dto.getDirector();
-        List<ScientificResearcher> scientificResearcherList = dto.getScientificResearcherList();
-        List<OfficeSpace> officeSpaceList = dto.getOfficeSpaceList();
+        List<String> researcherIdList = dto.getResearcherIdList();
+        List<String> siteIdList = dto.getSiteIdList();
 
         researchLaboratoryMapper.insert(researchLaboratory);
-        // TODO: 加主任；加科研人员；加办公场地
+        // 添加主任
+        if (director != null)
+            directorMapper.insert(director);
+        // 添加拥有的科研人员
+        if (!researcherIdList.isEmpty())
+            scientificResearcherMapper.updateResearchersLab(researchLaboratory.getLabName(), researcherIdList);
+        // 添加拥有的办公场地
+        if (!siteIdList.isEmpty())
+            officeSpaceMapper.updateOfficeSpacesLab(researchLaboratory.getLabName(), siteIdList);
     }
 
     /**
@@ -63,10 +79,23 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
     public void updateResearchLaboratoryFullInfo(String oldLabName, ResearchLaboratoryDto dto) {
         ResearchLaboratory researchLaboratory = dto.getResearchLaboratory();
         Director director = dto.getDirector();
-        List<ScientificResearcher> scientificResearcherList = dto.getScientificResearcherList();
-        List<OfficeSpace> officeSpaceList = dto.getOfficeSpaceList();
+        List<String> researcherIdList = dto.getResearcherIdList();
+        List<String> siteIdList = dto.getSiteIdList();
 
         // TODO: 判断是否空，置0，加主任；判断是否空，置0，加科研人员；（已断定非空）置0，加办公场地
+        researchLaboratoryMapper.update(oldLabName, researchLaboratory);
+
+        directorMapper.delete(oldLabName);
+        if (director != null)
+            directorMapper.insert(director);
+
+        scientificResearcherMapper.clearResearchersLab(researchLaboratory.getLabName());
+        if (!researcherIdList.isEmpty())
+            scientificResearcherMapper.updateResearchersLab(researchLaboratory.getLabName(), researcherIdList);
+
+        officeSpaceMapper.clearOfficeSpacesLab(researchLaboratory.getLabName());
+        if (!siteIdList.isEmpty())
+            officeSpaceMapper.updateOfficeSpacesLab(researchLaboratory.getLabName(), siteIdList);
     }
 
     /**

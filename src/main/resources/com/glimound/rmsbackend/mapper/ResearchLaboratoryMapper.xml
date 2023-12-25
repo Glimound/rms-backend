@@ -6,21 +6,51 @@
 
     <!--  研究室和拥有的科研人员、办公场地、主任、秘书的信息  -->
     <resultMap id="researchLab_fullInfo_Map" type="com.glimound.rmsbackend.vo.ResearchLaboratoryVo">
-        <result column="lab_name" property="labName"/>
-        <result column="research_direction" property="researchDirection"/>
-        <association property="secretary" autoMapping="true"/>
-        <association property="director" autoMapping="true"/>
+        <result column="rl_lab_name" property="labName"/>
+        <result column="rl_research_direction" property="researchDirection"/>
+        <association property="secretary">
+            <result column="s_secretary_id" property="secretaryId"/>
+            <result column="s_name" property="name"/>
+            <result column="s_gender" property="gender"/>
+            <result column="s_birth" property="birth"/>
+            <result column="s_employ_date" property="employDate"/>
+            <result column="s_remit" property="remit"/>
+        </association>
+        <association property="director">
+            <result column="d_lab_name" property="labName"/>
+            <result column="d_researcher_id" property="researcherId"/>
+            <result column="d_appointment_date" property="appointmentDate"/>
+            <result column="d_term_date" property="termDate"/>
+        </association>
         <collection property="officeSpaceList" ofType="com.glimound.rmsbackend.pojo.OfficeSpace" autoMapping="true"/>
         <collection property="scientificResearcherList" ofType="com.glimound.rmsbackend.pojo.ScientificResearcher" autoMapping="true"/>
     </resultMap>
 
     <select id="selectByName" resultMap="researchLab_fullInfo_Map">
         select
-            rl.lab_name, rl.research_direction,
-            s.secretary_id, s.name, s.gender, s.birth, employ_date, remit,
-            d.lab_name, d.researcher_id, appointment_date, term_date,
-            os.site_id, space_area, address, os.lab_name,
-            sr.researcher_id, sr.name, sr.gender, sr.birth, title, sr.research_direction, sr.lab_name
+            rl.lab_name as rl_lab_name,
+            rl.research_direction as rl_research_direction,
+            s.secretary_id as s_secretary_id,
+            s.name as s_name,
+            s.gender as s_gender,
+            s.birth as s_birth,
+            s.employ_date as s_employ_date,
+            s.remit as s_remit,
+            d.lab_name as d_lab_name,
+            d.researcher_id as d_researcher_id,
+            d.appointment_date as d_appointment_date,
+            d.term_date as d_term_date,
+            os.site_id,
+            os.space_area,
+            os.address,
+            os.lab_name,
+            sr.researcher_id,
+            sr.name,
+            sr.gender,
+            sr.birth,
+            sr.title,
+            sr.research_direction,
+            sr.lab_name
         from research_laboratory rl
             left join secretary s on rl.secretary_id = s.secretary_id
             left join director d on rl.lab_name = d.lab_name
