@@ -33,7 +33,7 @@ public class OfficeSpaceController {
     CommonResult<OfficeSpace> getOfficeSpaceFullInfo(@PathVariable String siteId) {
         OfficeSpace officeSpace = officeSpaceService.getOfficeSpaceFullInfo(siteId);
         return new CommonResult<>(officeSpace);
-    };
+    }
 
     /**
      * 新增办公场地信息及其所属的研究室
@@ -41,7 +41,7 @@ public class OfficeSpaceController {
     @PostMapping
     void addOfficeSpaceFullInfo(@RequestBody OfficeSpaceDto officeSpaceDto) {
         officeSpaceService.addOfficeSpaceFullInfo(officeSpaceDto);
-    };
+    }
 
     /**
      * 更新办公场地信息及其所属的研究室
@@ -49,7 +49,7 @@ public class OfficeSpaceController {
     @PutMapping("/{siteId}")
     void updateOfficeSpaceFullInfo(@PathVariable String siteId, @RequestBody OfficeSpaceDto officeSpaceDto) {
         officeSpaceService.updateOfficeSpaceFullInfo(siteId, officeSpaceDto);
-    };
+    }
 
     /**
      * 删除办公场地信息
@@ -57,6 +57,6 @@ public class OfficeSpaceController {
     @DeleteMapping("/{siteId}")
     void deleteOfficeSpaceFullInfo(@PathVariable String siteId) {
         officeSpaceService.deleteOfficeSpaceFullInfo(siteId);
-    };
+    }
 
 }
