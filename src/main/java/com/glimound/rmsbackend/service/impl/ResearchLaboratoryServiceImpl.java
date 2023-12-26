@@ -82,7 +82,6 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
         List<String> researcherIdList = dto.getResearcherIdList();
         List<String> siteIdList = dto.getSiteIdList();
 
-        // TODO: 判断是否空，置0，加主任；判断是否空，置0，加科研人员；（已断定非空）置0，加办公场地
         researchLaboratoryMapper.update(oldLabName, researchLaboratory);
 
         directorMapper.delete(oldLabName);
