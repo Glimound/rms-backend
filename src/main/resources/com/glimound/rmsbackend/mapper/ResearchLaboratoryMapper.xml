@@ -22,8 +22,12 @@
             <result column="d_appointment_date" property="appointmentDate"/>
             <result column="d_term_date" property="termDate"/>
         </association>
-        <collection property="officeSpaceList" ofType="com.glimound.rmsbackend.pojo.OfficeSpace" autoMapping="true"/>
-        <collection property="scientificResearcherList" ofType="com.glimound.rmsbackend.pojo.ScientificResearcher" autoMapping="true"/>
+        <collection property="officeSpaceList" ofType="com.glimound.rmsbackend.pojo.OfficeSpace" autoMapping="true">
+            <result column="os_lab_name" property="labName"/>
+        </collection>
+        <collection property="scientificResearcherList" ofType="com.glimound.rmsbackend.pojo.ScientificResearcher" autoMapping="true">
+            <result column="sr_lab_name" property="labName"/>
+        </collection>
     </resultMap>
 
     <select id="selectByName" resultMap="researchLab_fullInfo_Map">
@@ -43,14 +47,14 @@
             os.site_id,
             os.space_area,
             os.address,
-            os.lab_name,
+            os.lab_name as os_lab_name,
             sr.researcher_id,
             sr.name,
             sr.gender,
             sr.birth,
             sr.title,
             sr.research_direction,
-            sr.lab_name
+            sr.lab_name as sr_lab_name
         from research_laboratory rl
             left join secretary s on rl.secretary_id = s.secretary_id
             left join director d on rl.lab_name = d.lab_name

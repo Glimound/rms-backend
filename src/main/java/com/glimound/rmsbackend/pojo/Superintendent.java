@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Superintendent {
-    private Long superintendentId;
+    private Integer superintendentId;
     private String name;
     private String officePhone;
     private String mobilePhone;

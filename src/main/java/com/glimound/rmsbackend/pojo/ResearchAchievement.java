@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResearchAchievement {
-    private Long achievementId;
+    private Integer achievementId;
     private String achievementName;
     private LocalDate acquisitionDate;
     private Integer achievementType;

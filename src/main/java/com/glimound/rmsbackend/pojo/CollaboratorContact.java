@@ -9,5 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CollaboratorContact {
     private Integer contactId;
+    private String name;
+    private String officePhone;
+    private String mobilePhone;
+    private String email;
     private String collaboratorName;
 }

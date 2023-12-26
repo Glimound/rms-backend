@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glimound.rmsbackend.mapper.ClientMapper">
+    <resultMap id="client_fullInfo_map" type="com.glimound.rmsbackend.vo.ClientVo">
+        <result column="c_client_name" property="clientName"/>
+        <result column="c_address" property="address"/>
+        <association property="superintendent">
+            <result column="s_superintendent_id" property="superintendentId"/>
+            <result column="s_name" property="name"/>
+            <result column="s_office_phone" property="officePhone"/>
+            <result column="s_mobile_phone" property="mobilePhone"/>
+            <result column="s_email" property="email"/>
+        </association>
+        <collection property="clientContactList" ofType="com.glimound.rmsbackend.pojo.ClientContact">
+            <result column="cc_contact_id" property="contactId"/>
+            <result column="cc_name" property="name"/>
+            <result column="cc_office_phone" property="officePhone"/>
+            <result column="cc_mobile_phone" property="mobilePhone"/>
+            <result column="cc_email" property="email"/>
+            <result column="cc_client_name" property="clientName"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByName" resultMap="client_fullInfo_map">
+        select c.client_name as c_client_name,
+               c.address as c_address,
+               s.superintendent_id as s_superintendent_id,
+               s.name as s_name,
+               s.office_phone as s_office_phone,
+               s.mobile_phone as s_mobile_phone,
+               s.email as s_email,
+               cc.contact_id as cc_contact_id,
+               cc.name as cc_name,
+               cc.office_phone as cc_office_phone,
+               cc.mobile_phone as cc_mobile_phone,
+               cc.email as cc_email,
+               cc.client_name as cc_client_name
+        from client c
+            left join superintendent s on c.superintendent_id = s.superintendent_id
+            left join client_contact cc on c.client_name = cc.client_name
+        where c.client_name = #{clientName}
+    </select>
+</mapper>

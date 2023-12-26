@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glimound.rmsbackend.mapper.QualityMonitorMapper">
+    <resultMap id="quality_monitor_fullInfo_map" type="com.glimound.rmsbackend.vo.QualityMonitorVo">
+        <result column="q_quality_monitor_name" property="qualityMonitorName"/>
+        <result column="q_address" property="address"/>
+        <association property="superintendent">
+            <result column="s_superintendent_id" property="superintendentId"/>
+            <result column="s_name" property="name"/>
+            <result column="s_office_phone" property="officePhone"/>
+            <result column="s_mobile_phone" property="mobilePhone"/>
+            <result column="s_email" property="email"/>
+        </association>
+        <collection property="qualityMonitorContactList" ofType="com.glimound.rmsbackend.pojo.QualityMonitorContact">
+            <result column="qmc_contact_id" property="contactId"/>
+            <result column="qmc_name" property="name"/>
+            <result column="qmc_office_phone" property="officePhone"/>
+            <result column="qmc_mobile_phone" property="mobilePhone"/>
+            <result column="qmc_email" property="email"/>
+            <result column="qmc_quality_monitor_name" property="qualityMonitorName"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByName" resultMap="quality_monitor_fullInfo_map">
+        select q.quality_monitor_name as q_quality_monitor_name,
+               q.address as q_address,
+               s.superintendent_id as s_superintendent_id,
+               s.name as s_name,
+               s.office_phone as s_office_phone,
+               s.mobile_phone as s_mobile_phone,
+               s.email as s_email,
+               qmc.contact_id as qmc_contact_id,
+               qmc.name as qmc_name,
+               qmc.office_phone as qmc_office_phone,
+               qmc.mobile_phone as qmc_mobile_phone,
+               qmc.email as qmc_email,
+               qmc.quality_monitor_name as qmc_quality_monitor_name
+        from quality_monitor q
+            left join superintendent s on q.superintendent_id = s.superintendent_id
+            left join quality_monitor_contact qmc on q.quality_monitor_name = qmc.quality_monitor_name
+        where q.quality_monitor_name = #{qualityMonitorName}
+    </select>
+</mapper>
