@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glimound.rmsbackend.mapper.ResearchAchievementMapper">
+    <resultMap id="research_achievement_full_info_map" type="com.glimound.rmsbackend.vo.ResearchAchievementVo">
+        <result column="achievement_id" property="achievementId"/>
+        <result column="achievement_name" property="achievementName"/>
+        <result column="acquisition_date" property="acquisitionDate"/>
+        <result column="achievement_type" property="achievementType"/>
+        <result column="patent_type" property="patentType"/>
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <collection property="contributors" ofType="com.glimound.rmsbackend.vo.ResearcherAchievementVo">
+            <result column="rank" property="rank"/>
+            <result column="researcher_id" property="researcherId"/>
+            <result column="name" property="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectById" resultMap="research_achievement_full_info_map">
+        select
+            ra.achievement_id,
+            ra.achievement_name,
+            ra.acquisition_date,
+            ra.achievement_type,
+            ra.patent_type,
+            rp.project_id,
+            rp.project_name,
+            r.rank,
+            sr.researcher_id,
+            sr.name
+        from research_achievement ra
+            left join research_project rp on ra.project_id = rp.project_id
+            left join researcher_achievement r on ra.achievement_id = r.achievement_id
+            left join scientific_researcher sr on r.researcher_id = sr.researcher_id
+        where ra.achievement_id = #{achievementId}
+    </select>
+</mapper>
