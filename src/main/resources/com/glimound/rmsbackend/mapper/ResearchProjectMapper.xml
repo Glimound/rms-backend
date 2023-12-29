@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glimound.rmsbackend.mapper.ResearchProjectMapper">
+    <resultMap id="research_project_mapper" type="com.glimound.rmsbackend.vo.ResearchProjectVo">
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <result column="project_content" property="projectContent"/>
+        <result column="funding" property="funding"/>
+        <result column="start_date" property="startDate"/>
+        <result column="complete_date" property="completeDate"/>
+        <association property="superintendent" columnPrefix="s_" autoMapping="true"/>
+        <association property="client" columnPrefix="c_" autoMapping="true"/>
+        <association property="qualityMonitor" columnPrefix="qm_" autoMapping="true"/>
+        <collection property="collaboratorList" columnPrefix="c2_" ofType="com.glimound.rmsbackend.pojo.Collaborator" autoMapping="true"/>
+    </resultMap>
+
+    <resultMap id="research_project_subtopic_mapper" type="com.glimound.rmsbackend.vo.SubtopicVo">
+        <result column="subtopic_num" property="subtopicNum"/>
+        <result column="subtopic_content" property="subtopicContent"/>
+        <result column="available_funding" property="availableFunding"/>
+        <result column="complete_deadline_date" property="completeDeadlineDate"/>
+        <result column="technical_indicator" property="technicalIndicator"/>
+        <association property="superintendent" columnPrefix="s2_" autoMapping="true"/>
+        <collection property="joinedResearcher" columnPrefix="sr_" ofType="com.glimound.rmsbackend.vo.ScientificResearcherVo" autoMapping="true"/>
+    </resultMap>
+
+    <resultMap id="research_project_achievement_mapper" type="com.glimound.rmsbackend.vo.ResearchAchievementVo">
+        <result column="achievement_id" property="achievementId"/>
+        <result column="achievement_name" property="achievementName"/>
+        <result column="acquisition_date" property="acquisitionDate"/>
+        <result column="achievement_type" property="achievementType"/>
+        <result column="patent_type" property="patentType"/>
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <collection property="contributors" ofType="com.glimound.rmsbackend.vo.ResearcherAchievementVo">
+            <result column="ra2_rank" property="rank"/>
+            <result column="ra2_researcher_id" property="researcherId"/>
+            <result column="sr_name" property="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectProjectInfoById" resultMap="research_project_mapper">
+        select rp.project_id, rp.project_name, rp.project_content, rp.funding, rp.start_date, rp.complete_date,
+               s.superintendent_id as s_superintendent_id,
+               s.name as s_name,
+               s.office_phone as s_office_phone,
+               s.mobile_phone as s_mobile_phone,
+               s.email as s_email,
+               c.client_name as c_client_name,
+               c.address as c_address,
+               c.superintendent_id as c_superintendent_id,
+               qm.quality_monitor_name as qm_quality_monitor_name,
+               qm.address as qm_address,
+               qm.superintendent_id as qm_superintendent_id,
+               c2.collaborator_name as c2_collaborator_name,
+               c2.address as c2_address,
+               c2.superintendent_id as c2_superintendent_id
+        from research_project rp
+            left join superintendent s on rp.superintendent_id = s.superintendent_id
+            left join client c on rp.client_name = c.client_name
+            left join quality_monitor qm on rp.quality_monitor_name = qm.quality_monitor_name
+            left join project_collaborator pc on rp.project_id = pc.project_id
+            left join collaborator c2 on pc.collaborator_name = c2.collaborator_name
+        where rp.project_id = #{projectId}
+    </select>
+
+    <select id="selectSubtopicById" resultMap="research_project_subtopic_mapper">
+        select s.subtopic_num, s.subtopic_content, s.available_funding, s.complete_deadline_date, s.technical_indicator,
+               s2.superintendent_id as s2_superintendent_id,
+               s2.name as s2_name,
+               s2.office_phone as s2_office_phone,
+               s2.mobile_phone as s2_mobile_phone,
+               s2.email as s2_email,
+               sr.researcher_id as sr_researcher_id,
+               sr.name as sr_name
+        from research_project rp
+            left join subtopic s on rp.project_id = s.project_id
+            left join superintendent s2 on s.superintendent_id = s2.superintendent_id
+            left join researcher_project r on rp.project_id = r.project_id and s.subtopic_num = r.subtopic_num
+            left join scientific_researcher sr on r.researcher_id = sr.researcher_id
+        where rp.project_id = #{projectId}
+    </select>
+
+    <select id="selectResearcherById" resultType="com.glimound.rmsbackend.vo.ResearcherProjectVo">
+        select r.researcher_id, name, title, lab_name, join_date, work_hour, available_funding
+        from research_project rp
+            left join researcher_project r on rp.project_id = r.project_id
+            left join scientific_researcher sr on r.researcher_id = sr.researcher_id
+        where rp.project_id = #{projectId}
+    </select>
+
+    <select id="selectAchievementById" resultMap="research_project_achievement_mapper">
+        select
+            ra.achievement_id,
+            ra.achievement_name,
+            ra.acquisition_date,
+            ra.achievement_type,
+            ra.patent_type,
+            ra.project_id,
+            rp.project_name,
+            ra2.rank as ra2_rank,
+            ra2.researcher_id as ra2_researcher_id,
+            sr.name as sr_name
+        from research_project rp
+            left join research_achievement ra on rp.project_id = ra.project_id
+            left join researcher_achievement ra2 on ra.achievement_id = ra2.achievement_id
+            left join scientific_researcher sr on ra2.researcher_id = sr.researcher_id
+        where rp.project_id = #{projectId}
+    </select>
+</mapper>

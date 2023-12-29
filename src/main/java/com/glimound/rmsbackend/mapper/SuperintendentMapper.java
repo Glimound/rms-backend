@@ -20,4 +20,8 @@ public interface SuperintendentMapper {
     @Update("update superintendent set name = #{s.name}, office_phone = #{s.officePhone}, " +
             "mobile_phone = #{s.mobilePhone}, email = #{s.email} where superintendent_id = #{superintendentId}")
     void update(Integer superintendentId, Superintendent s);
+
+    @Delete("delete from superintendent where superintendent_id = " +
+            "(select superintendent_id from research_project where project_id = #{projectId})")
+    void clearByProjectId(String projectId);
 }

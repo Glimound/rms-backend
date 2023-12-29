@@ -31,4 +31,7 @@ public interface ResearchAchievementMapper {
             "acquisition_date = #{ra.acquisitionDate}, achievement_type = #{ra.achievementType}, patent_type = #{ra.patentType}, " +
             "project_id = #{ra.projectId} where achievement_id = #{achievementId}")
     void update(Integer achievementId, ResearchAchievement ra);
+
+    @Delete("delete from research_achievement where project_id = #{projectId}")
+    void clearById(String projectId);
 }
