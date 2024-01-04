@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/scientific-researchers")
+@RequestMapping("/api/scientific-researchers")
 public class ScientificResearcherController {
 
     @Autowired

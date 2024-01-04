@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/office-spaces")
+@RequestMapping("/api/office-spaces")
 @Slf4j
 public class OfficeSpaceController {
 

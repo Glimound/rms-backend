@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/secretaries")
+@RequestMapping("/api/secretaries")
 @Slf4j
 public class SecretaryController {
 
