@@ -27,5 +27,5 @@ public class ResearchProjectVo {
     private List<Collaborator> collaboratorList;
     private List<ResearcherProjectVo> researcherList;
     private List<SubtopicVo> subtopicList;
-    private List<ResearchAchievementVo> researchAchievementList;
+//    private List<ResearchAchievementVo> researchAchievementList;
 }

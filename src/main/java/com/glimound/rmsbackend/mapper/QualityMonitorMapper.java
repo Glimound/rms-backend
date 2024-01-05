@@ -30,4 +30,7 @@ public interface QualityMonitorMapper {
 
     @Select("select superintendent_id from quality_monitor where quality_monitor_name = #{qualityMonitorName}")
     Integer selectSuperintendentIdByName(String qualityMonitorName);
+
+    @Select("select quality_monitor_name, address, superintendent_id from quality_monitor where quality_monitor_name like concat('%',#{str},'%')")
+    List<QualityMonitor> getQualityMonitorMatched(String str);
 }

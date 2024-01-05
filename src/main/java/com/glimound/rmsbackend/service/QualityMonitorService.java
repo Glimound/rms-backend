@@ -1,8 +1,11 @@
 package com.glimound.rmsbackend.service;
 
 import com.glimound.rmsbackend.dto.QualityMonitorDto;
+import com.glimound.rmsbackend.pojo.QualityMonitor;
 import com.glimound.rmsbackend.vo.QualityMonitorListVo;
 import com.glimound.rmsbackend.vo.QualityMonitorVo;
+
+import java.util.List;
 
 public interface QualityMonitorService {
     /**
@@ -29,4 +32,9 @@ public interface QualityMonitorService {
      * 删除质量监测方信息及其负责人、联系人
      */
     void deleteQualityMonitorFullInfo(String qualityMonitorName);
+
+    /**
+     * 关键字搜索：返回所有QualityMonitor
+     */
+    List<QualityMonitor> getQualityMonitorMatched(String str);
 }

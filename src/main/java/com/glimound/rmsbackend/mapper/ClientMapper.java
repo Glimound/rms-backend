@@ -29,4 +29,7 @@ public interface ClientMapper {
 
     @Select("select superintendent_id from client where client_name = #{clientName}")
     Integer selectSuperintendentIdByName(String clientName);
+
+    @Select("select client_name, address, superintendent_id from client where client_name like concat('%',#{str},'%')")
+    List<Client> getClientMatched(String str);
 }

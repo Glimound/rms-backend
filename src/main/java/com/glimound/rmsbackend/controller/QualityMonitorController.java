@@ -1,11 +1,16 @@
 package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.QualityMonitorDto;
+import com.glimound.rmsbackend.pojo.Client;
+import com.glimound.rmsbackend.pojo.Collaborator;
+import com.glimound.rmsbackend.pojo.QualityMonitor;
 import com.glimound.rmsbackend.service.QualityMonitorService;
 import com.glimound.rmsbackend.vo.QualityMonitorListVo;
 import com.glimound.rmsbackend.vo.QualityMonitorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/quality-monitors")
@@ -55,5 +60,13 @@ public class QualityMonitorController {
     @DeleteMapping("/{qualityMonitorName}")
     public void deleteQualityMonitorFullInfo(@PathVariable String qualityMonitorName) {
         qualityMonitorService.deleteQualityMonitorFullInfo(qualityMonitorName);
+    }
+
+    /**
+     * 关键字搜索：返回所有QualityMonitor
+     */
+    @GetMapping("/quality-monitor-options/{str}")
+    public List<QualityMonitor> getQualityMonitorMatched(@PathVariable String str) {
+        return qualityMonitorService.getQualityMonitorMatched(str);
     }
 }

@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScientificResearcherListVo {
-    private List<ScientificResearcher> scientificResearcherlist;
+    private List<ScientificResearcher> scientificResearcherList;
     private Long count;
 }

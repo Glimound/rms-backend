@@ -23,7 +23,9 @@
         <result column="complete_deadline_date" property="completeDeadlineDate"/>
         <result column="technical_indicator" property="technicalIndicator"/>
         <association property="superintendent" columnPrefix="s2_" autoMapping="true"/>
-        <collection property="joinedResearcher" columnPrefix="sr_" ofType="com.glimound.rmsbackend.vo.ScientificResearcherVo" autoMapping="true"/>
+        <collection property="joinedResearcherIdList" ofType="String">
+            <result column="sr_researcher_id"/>
+        </collection>
     </resultMap>
 
     <resultMap id="research_project_achievement_mapper" type="com.glimound.rmsbackend.vo.ResearchAchievementVo">

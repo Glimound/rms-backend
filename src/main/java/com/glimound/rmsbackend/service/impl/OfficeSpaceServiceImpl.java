@@ -60,4 +60,12 @@ public class OfficeSpaceServiceImpl implements OfficeSpaceService {
     public void deleteOfficeSpaceFullInfo(String siteId) {
         officeSpaceMapper.delete(siteId);
     }
+
+    /**
+     * 关键字搜索：返回所有OfficeSpace
+     */
+    @Override
+    public List<OfficeSpace> getOfficeSpaceMatched(String str) {
+        return officeSpaceMapper.selectOfficeSpaceMatched(str);
+    }
 }

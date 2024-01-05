@@ -108,4 +108,12 @@ public class QualityMonitorServiceImpl implements QualityMonitorService {
         superintendentMapper.delete(superintendentId);
         qualityMonitorMapper.delete(qualityMonitorName);
     }
+
+    /**
+     * 关键字搜索：返回所有QualityMonitor
+     */
+    @Override
+    public List<QualityMonitor> getQualityMonitorMatched(String str) {
+        return qualityMonitorMapper.getQualityMonitorMatched(str);
+    }
 }

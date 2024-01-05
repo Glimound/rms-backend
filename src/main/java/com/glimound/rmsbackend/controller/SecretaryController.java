@@ -1,12 +1,15 @@
 package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.SecretaryDto;
+import com.glimound.rmsbackend.pojo.Secretary;
 import com.glimound.rmsbackend.service.SecretaryService;
 import com.glimound.rmsbackend.vo.SecretaryListVo;
 import com.glimound.rmsbackend.vo.SecretaryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/secretaries")
@@ -57,5 +60,13 @@ public class SecretaryController {
     @DeleteMapping("/{secretaryId}")
     public void deleteSecretaryFullInfo(@PathVariable String secretaryId) {
         secretaryService.deleteSecretaryFullInfo(secretaryId);
+    }
+
+    /**
+     * 关键字搜索：返回所有Secretary
+     */
+    @GetMapping("/secretary-options/{str}")
+    public List<Secretary> getSecretaryMatched(@PathVariable String str) {
+        return secretaryService.getSecretaryMatched(str);
     }
 }

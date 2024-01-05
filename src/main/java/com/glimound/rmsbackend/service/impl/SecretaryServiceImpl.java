@@ -80,4 +80,12 @@ public class SecretaryServiceImpl implements SecretaryService {
         secretaryMapper.delete(secretaryId);
         // 无需置空研究室表对应键（级联置空）
     }
+
+    /**
+     * 关键字搜索：返回所有Secretary
+     */
+    @Override
+    public List<Secretary> getSecretaryMatched(String str) {
+        return secretaryMapper.getSecretaryMatched(str);
+    }
 }

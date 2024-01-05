@@ -27,4 +27,7 @@ public interface SecretaryMapper {
     @Update("update secretary set secretary_id = #{s.secretaryId}, name = #{s.name}, gender = #{s.gender}, " +
             "birth = #{s.birth}, employ_date = #{s.employDate}, remit = #{s.remit} where secretary_id = #{oldSecretaryId}")
     void update(String oldSecretaryId, Secretary s);
+
+    @Select("select secretary_id, name, gender, birth, employ_date, remit from secretary where secretary.secretary_id like concat('%',#{str},'%')")
+    List<Secretary> getSecretaryMatched(String str);
 }

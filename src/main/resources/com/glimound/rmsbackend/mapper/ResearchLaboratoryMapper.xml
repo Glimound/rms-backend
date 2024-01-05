@@ -47,14 +47,14 @@
             os.site_id,
             os.space_area,
             os.address,
-            os.lab_name as os_lab_name,
+            os.lab_name,
             sr.researcher_id,
             sr.name,
             sr.gender,
             sr.birth,
             sr.title,
             sr.research_direction,
-            sr.lab_name as sr_lab_name
+            sr.lab_name
         from research_laboratory rl
             left join secretary s on rl.secretary_id = s.secretary_id
             left join director d on rl.lab_name = d.lab_name

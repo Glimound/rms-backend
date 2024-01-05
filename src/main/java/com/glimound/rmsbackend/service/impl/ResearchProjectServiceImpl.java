@@ -52,10 +52,10 @@ public class ResearchProjectServiceImpl implements ResearchProjectService {
         ResearchProjectVo projectInfo = researchProjectMapper.selectProjectInfoById(projectId);
         List<ResearcherProjectVo> researcherList = researchProjectMapper.selectResearcherById(projectId);
         List<SubtopicVo> subtopicList = researchProjectMapper.selectSubtopicById(projectId);
-        List<ResearchAchievementVo> researchAchievementList = researchProjectMapper.selectAchievementById(projectId);
+//        List<ResearchAchievementVo> researchAchievementList = researchProjectMapper.selectAchievementById(projectId);
         projectInfo.setResearcherList(researcherList);
         projectInfo.setSubtopicList(subtopicList);
-        projectInfo.setResearchAchievementList(researchAchievementList);
+//        projectInfo.setResearchAchievementList(researchAchievementList);
         return projectInfo;
     }
 
@@ -69,7 +69,7 @@ public class ResearchProjectServiceImpl implements ResearchProjectService {
         SuperintendentDto superintendentDto = researchProjectDto.getSuperintendent();
         List<String> collaboratorNameList = researchProjectDto.getCollaboratorNameList();
         List<SubtopicDto> subtopicDtoList = researchProjectDto.getSubtopicList();
-        List<ResearchAchievementDto> researchAchievementDtoList = researchProjectDto.getResearchAchievementList();
+//        List<ResearchAchievementDto> researchAchievementDtoList = researchProjectDto.getResearchAchievementList();
 
         // 添加项目的负责人
         Superintendent superintendent = new Superintendent();
@@ -116,21 +116,21 @@ public class ResearchProjectServiceImpl implements ResearchProjectService {
             }
         }
 
-        // 添加项目的科研成果
-        if (!researchAchievementDtoList.isEmpty()) {
-            ResearchAchievement researchAchievement = new ResearchAchievement();
-            for (ResearchAchievementDto dto : researchAchievementDtoList) {
-                BeanUtils.copyProperties(dto, researchAchievement);
-                researchAchievementMapper.insert(researchAchievement);
-                // 添加科研成果的贡献人
-                ResearcherAchievement contributor = new ResearcherAchievement();
-                contributor.setAchievementId(researchAchievement.getAchievementId());
-                for (ResearcherAchievementDto c_dto : dto.getContributors()) {
-                    BeanUtils.copyProperties(c_dto, contributor);
-                    contributorMapper.insert(contributor);
-                }
-            }
-        }
+//        // 添加项目的科研成果
+//        if (!researchAchievementDtoList.isEmpty()) {
+//            ResearchAchievement researchAchievement = new ResearchAchievement();
+//            for (ResearchAchievementDto dto : researchAchievementDtoList) {
+//                BeanUtils.copyProperties(dto, researchAchievement);
+//                researchAchievementMapper.insert(researchAchievement);
+//                // 添加科研成果的贡献人
+//                ResearcherAchievement contributor = new ResearcherAchievement();
+//                contributor.setAchievementId(researchAchievement.getAchievementId());
+//                for (ResearcherAchievementDto c_dto : dto.getContributors()) {
+//                    BeanUtils.copyProperties(c_dto, contributor);
+//                    contributorMapper.insert(contributor);
+//                }
+//            }
+//        }
     }
 
     /**
@@ -143,7 +143,7 @@ public class ResearchProjectServiceImpl implements ResearchProjectService {
         SuperintendentDto superintendentDto = researchProjectDto.getSuperintendent();
         List<SubtopicDto> subtopicDtoList = researchProjectDto.getSubtopicList();
         List<String> collaboratorNameList = researchProjectDto.getCollaboratorNameList();
-        List<ResearchAchievementDto> researchAchievementDtoList = researchProjectDto.getResearchAchievementList();
+//        List<ResearchAchievementDto> researchAchievementDtoList = researchProjectDto.getResearchAchievementList();
 
         // 查询项目的负责人id
         Integer superintendentId = researchProjectMapper.selectProjectSuperintendentId(oldProjectId);
@@ -197,24 +197,24 @@ public class ResearchProjectServiceImpl implements ResearchProjectService {
             }
         }
 
-        // 修改项目的科研成果
-        // 删除
-        researchAchievementMapper.clearById(oldProjectId);
-        // 添加
-        if (!researchAchievementDtoList.isEmpty()) {
-            ResearchAchievement researchAchievement = new ResearchAchievement();
-            for (ResearchAchievementDto dto : researchAchievementDtoList) {
-                BeanUtils.copyProperties(dto, researchAchievement);
-                researchAchievementMapper.insert(researchAchievement);
-                // 添加科研成果的贡献人
-                ResearcherAchievement contributor = new ResearcherAchievement();
-                contributor.setAchievementId(researchAchievement.getAchievementId());
-                for (ResearcherAchievementDto c_dto : dto.getContributors()) {
-                    BeanUtils.copyProperties(c_dto, contributor);
-                    contributorMapper.insert(contributor);
-                }
-            }
-        }
+//        // 修改项目的科研成果
+//        // 删除
+//        researchAchievementMapper.clearById(oldProjectId);
+//        // 添加
+//        if (!researchAchievementDtoList.isEmpty()) {
+//            ResearchAchievement researchAchievement = new ResearchAchievement();
+//            for (ResearchAchievementDto dto : researchAchievementDtoList) {
+//                BeanUtils.copyProperties(dto, researchAchievement);
+//                researchAchievementMapper.insert(researchAchievement);
+//                // 添加科研成果的贡献人
+//                ResearcherAchievement contributor = new ResearcherAchievement();
+//                contributor.setAchievementId(researchAchievement.getAchievementId());
+//                for (ResearcherAchievementDto c_dto : dto.getContributors()) {
+//                    BeanUtils.copyProperties(c_dto, contributor);
+//                    contributorMapper.insert(contributor);
+//                }
+//            }
+//        }
 
         // 修改项目基础信息、委托方、质量监测方
         ResearchProject researchProject = new ResearchProject();
@@ -233,5 +233,21 @@ public class ResearchProjectServiceImpl implements ResearchProjectService {
         joinedResearcherMapper.clearById(projectId);
         superintendentMapper.clearByProjectId(projectId);
         researchProjectMapper.delete(projectId);
+    }
+
+    /**
+     * 关键字搜索：返回所有ProjectId与ProjectName
+     */
+    @Override
+    public List<ProjectOptionVo> getIdAndNameMatched(String str) {
+        return researchProjectMapper.selectIdAndNameMatched(str);
+    }
+
+    /**
+     * 关键字搜索：返回属于当前project的科研人员
+     */
+    @Override
+    public List<ResearcherOptionVo> getOwnResearcherMatched(String str, String projectId) {
+        return researchProjectMapper.selectOwnResearcherMatched(str, projectId);
     }
 }

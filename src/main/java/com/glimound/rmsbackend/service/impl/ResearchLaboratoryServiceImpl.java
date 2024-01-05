@@ -104,4 +104,21 @@ public class ResearchLaboratoryServiceImpl implements ResearchLaboratoryService 
     public void deleteResearchLaboratoryFullInfo(String labName) {
         researchLaboratoryMapper.delete(labName);
     }
+
+    /**
+     * 关键字搜索：返回所有labName
+     */
+    @Override
+    public List<String> getLabNameMatched(String str) {
+        return researchLaboratoryMapper.selectLabNameMatched(str);
+    }
+
+    /**
+     * 关键字搜索：返回所有未拥有秘书的labName
+     */
+    @Override
+    public List<String> getLabNameWithNoSecretaryMatched(String str) {
+        List<String> result = researchLaboratoryMapper.selectLabNameWithNoSecretaryMatched(str);
+        return result;
+    }
 }

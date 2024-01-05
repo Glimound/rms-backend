@@ -42,7 +42,16 @@ public interface ResearchLaboratoryMapper {
      */
     void clearLabsSecretary(String secretaryId);
 
-//    TODO: 选出归属于该实验室的学生
-//    @Select("select")
-//    List<ScientificResearcher> selectResearchersFromLab(String labName);
+    /**
+     * 关键字搜索：返回所有labName
+     */
+    @Select("select lab_name from research_laboratory where lab_name like concat('%',#{str},'%')")
+    List<String> selectLabNameMatched(String str);
+
+    /**
+     * 关键字搜索：返回所有未拥有秘书的labName
+     */
+    @Select("select lab_name from research_laboratory where secretary_id is null and lab_name like concat('%',#{str},'%')")
+    List<String> selectLabNameWithNoSecretaryMatched(String str);
+
 }

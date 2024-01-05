@@ -3,9 +3,12 @@ package com.glimound.rmsbackend.controller;
 import com.glimound.rmsbackend.dto.ScientificResearcherDto;
 import com.glimound.rmsbackend.pojo.ScientificResearcher;
 import com.glimound.rmsbackend.service.ScientificResearcherService;
+import com.glimound.rmsbackend.vo.ResearcherProjectVo;
 import com.glimound.rmsbackend.vo.ScientificResearcherListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/scientific-researchers")
@@ -56,4 +59,29 @@ public class ScientificResearcherController {
     void deleteScientificResearcherFullInfo(@PathVariable String researcherId) {
         scientificResearcherService.deleteScientificResearcherFullInfo(researcherId);
     }
+
+    /**
+     * 关键字搜索：返回所有未属于任何一个研究室的ScientificResearcher
+     */
+    @GetMapping("/free-researcher-options/{str}")
+    public List<ScientificResearcher> getFreeResearcherMatched(@PathVariable String str) {
+        return scientificResearcherService.getFreeResearcherMatched(str);
+    }
+
+    /**
+     * 关键字搜索：返回研究室所属的ScientificResearcher
+     */
+    @GetMapping("/lab-own-researcher-options/{str}")
+    public List<ScientificResearcher> getLabOwnResearcherMatched(@PathVariable String str, @RequestParam String labName) {
+        return scientificResearcherService.getLabOwnResearcherMatched(str, labName);
+    }
+
+    /**
+     * 关键字搜索：返回所有ScientificResearcher
+     */
+    @GetMapping("/researcher-options/{str}")
+    public List<ResearcherProjectVo> getScientificResearcherMatched(@PathVariable String str) {
+        return scientificResearcherService.getScientificResearcherMatched(str);
+    }
+
 }

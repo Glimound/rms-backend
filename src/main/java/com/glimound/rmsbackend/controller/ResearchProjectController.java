@@ -2,10 +2,14 @@ package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.ResearchProjectDto;
 import com.glimound.rmsbackend.service.ResearchProjectService;
+import com.glimound.rmsbackend.vo.ProjectOptionVo;
 import com.glimound.rmsbackend.vo.ResearchProjectListVo;
 import com.glimound.rmsbackend.vo.ResearchProjectVo;
+import com.glimound.rmsbackend.vo.ResearcherOptionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/research-projects")
@@ -54,4 +58,21 @@ public class ResearchProjectController {
     public void deleteResearchProjectFullInfo(@PathVariable String projectId) {
         researchProjectService.deleteResearchProjectFullInfo(projectId);
     }
+
+    /**
+     * 关键字搜索：返回所有ProjectId与ProjectName
+     */
+    @GetMapping("/project-options/{str}")
+    public List<ProjectOptionVo> getProjectIdAndNameMatched(@PathVariable String str) {
+        return researchProjectService.getIdAndNameMatched(str);
+    }
+
+    /**
+     * 关键字搜索：返回属于当前project的科研人员
+     */
+    @GetMapping("/own-researcher-options/{str}")
+    public List<ResearcherOptionVo> getOwnResearcherMatched(@PathVariable String str, @RequestParam String projectId) {
+        return researchProjectService.getOwnResearcherMatched(str, projectId);
+    }
+
 }

@@ -104,4 +104,12 @@ public class CollaboratorServiceImpl implements CollaboratorService {
         superintendentMapper.delete(superintendentId);
         collaboratorMapper.delete(collaboratorName);
     }
+
+    /**
+     * 关键字搜索：返回所有Collaborator
+     */
+    @Override
+    public List<Collaborator> getCollaboratorMatched(String str) {
+        return collaboratorMapper.getCollaboratorMatched(str);
+    }
 }

@@ -38,4 +38,7 @@ public interface OfficeSpaceMapper {
      */
     @Update("update office_space set lab_name = null where lab_name = #{labName}")
     void clearOfficeSpacesLab(String labName);
+
+    @Select("select site_id, space_area, address, lab_name from office_space where site_id like concat('%',#{str},'%')")
+    List<OfficeSpace> selectOfficeSpaceMatched(String str);
 }

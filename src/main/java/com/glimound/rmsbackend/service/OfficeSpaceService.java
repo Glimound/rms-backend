@@ -4,6 +4,8 @@ import com.glimound.rmsbackend.dto.OfficeSpaceDto;
 import com.glimound.rmsbackend.pojo.OfficeSpace;
 import com.glimound.rmsbackend.vo.OfficeSpaceListVo;
 
+import java.util.List;
+
 public interface OfficeSpaceService {
     /**
      * 分页查询所有办公场地的信息
@@ -29,4 +31,9 @@ public interface OfficeSpaceService {
      * 删除办公场地信息
      */
     void deleteOfficeSpaceFullInfo(String siteId);
+
+    /**
+     * 关键字搜索：返回所有OfficeSpace
+     */
+    List<OfficeSpace> getOfficeSpaceMatched(String str);
 }

@@ -30,4 +30,7 @@ public interface CollaboratorMapper {
 
     @Select("select superintendent_id from collaborator where collaborator_name = #{collaboratorName}")
     Integer selectSuperintendentIdByName(String collaboratorName);
+
+    @Select("select collaborator_name, address, superintendent_id from collaborator where collaborator_name like concat('%',#{str},'%')")
+    List<Collaborator> getCollaboratorMatched(String str);
 }

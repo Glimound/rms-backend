@@ -26,5 +26,5 @@ public class ResearchProjectDto {
     private List<String> collaboratorNameList;
     private List<ResearcherProjectDto> researcherList;
     private List<SubtopicDto> subtopicList;
-    private List<ResearchAchievementDto> researchAchievementList;
+//    private List<ResearchAchievementDto> researchAchievementList;
 }

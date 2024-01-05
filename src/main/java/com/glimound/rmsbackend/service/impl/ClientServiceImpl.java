@@ -108,4 +108,12 @@ public class ClientServiceImpl implements ClientService {
         superintendentMapper.delete(superintendentId);
         clientMapper.delete(clientName);
     }
+
+    /**
+     * 关键字搜索：返回所有Client
+     */
+    @Override
+    public List<Client> getClientMatched(String str) {
+        return clientMapper.getClientMatched(str);
+    }
 }

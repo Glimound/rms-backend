@@ -4,13 +4,13 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.glimound.rmsbackend.dto.ScientificResearcherDto;
 import com.glimound.rmsbackend.mapper.ScientificResearcherMapper;
-import com.glimound.rmsbackend.pojo.OfficeSpace;
 import com.glimound.rmsbackend.pojo.ScientificResearcher;
 import com.glimound.rmsbackend.service.ScientificResearcherService;
-import com.glimound.rmsbackend.vo.OfficeSpaceListVo;
+import com.glimound.rmsbackend.vo.ResearcherProjectVo;
 import com.glimound.rmsbackend.vo.ScientificResearcherListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -61,5 +61,29 @@ public class ScientificResearcherServiceImpl implements ScientificResearcherServ
     @Override
     public void deleteScientificResearcherFullInfo(String researcherId) {
         scientificResearcherMapper.delete(researcherId);
+    }
+
+    /**
+     * 关键字搜索：返回所有未属于任何一个研究室的ScientificResearcher
+     */
+    @Override
+    public List<ScientificResearcher> getFreeResearcherMatched(String str) {
+        return scientificResearcherMapper.getFreeResearcherMatched(str);
+    }
+
+    /**
+     * 关键字搜索：返回研究室所属的ScientificResearcher
+     */
+    @Override
+    public List<ScientificResearcher> getLabOwnResearcherMatched(String str, String labName) {
+        return scientificResearcherMapper.getLabOwnResearcherMatched(str, labName);
+    }
+
+    /**
+     * 关键字搜索：返回所有ScientificResearcher
+     */
+    @Override
+    public List<ResearcherProjectVo> getScientificResearcherMatched(@PathVariable String str) {
+        return scientificResearcherMapper.selectResearcherMatched(str);
     }
 }

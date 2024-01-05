@@ -1,11 +1,15 @@
 package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.ClientDto;
+import com.glimound.rmsbackend.pojo.Client;
+import com.glimound.rmsbackend.pojo.OfficeSpace;
 import com.glimound.rmsbackend.service.ClientService;
 import com.glimound.rmsbackend.vo.ClientListVo;
 import com.glimound.rmsbackend.vo.ClientVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -56,4 +60,13 @@ public class ClientController {
     public void deleteClientFullInfo(@PathVariable String clientName) {
        clientService.deleteClientFullInfo(clientName);
     }
+
+    /**
+     * 关键字搜索：返回所有Client
+     */
+    @GetMapping("/client-options/{str}")
+    public List<Client> getClientMatched(@PathVariable String str) {
+        return clientService.getClientMatched(str);
+    }
+
 }

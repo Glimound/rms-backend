@@ -1,8 +1,11 @@
 package com.glimound.rmsbackend.service;
 
 import com.glimound.rmsbackend.dto.ClientDto;
+import com.glimound.rmsbackend.pojo.Client;
 import com.glimound.rmsbackend.vo.ClientListVo;
 import com.glimound.rmsbackend.vo.ClientVo;
+
+import java.util.List;
 
 public interface ClientService {
     /**
@@ -29,4 +32,9 @@ public interface ClientService {
      * 删除委托方信息及其负责人、联系人
      */
     void deleteClientFullInfo(String clientName);
+
+    /**
+     * 关键字搜索：返回所有Client
+     */
+    List<Client> getClientMatched(String str);
 }

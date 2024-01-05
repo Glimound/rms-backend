@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,5 +19,5 @@ public class SubtopicVo {
     private LocalDate completeDeadlineDate;
     private String technicalIndicator;
     private Superintendent superintendent;
-    private ScientificResearcherVo joinedResearcher;
+    private List<String> joinedResearcherIdList;
 }

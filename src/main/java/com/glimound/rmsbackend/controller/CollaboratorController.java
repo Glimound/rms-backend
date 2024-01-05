@@ -1,11 +1,15 @@
 package com.glimound.rmsbackend.controller;
 
 import com.glimound.rmsbackend.dto.CollaboratorDto;
+import com.glimound.rmsbackend.pojo.Client;
+import com.glimound.rmsbackend.pojo.Collaborator;
 import com.glimound.rmsbackend.service.CollaboratorService;
 import com.glimound.rmsbackend.vo.CollaboratorListVo;
 import com.glimound.rmsbackend.vo.CollaboratorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/collaborators")
@@ -55,5 +59,13 @@ public class CollaboratorController {
     @DeleteMapping("/{collaboratorName}")
     public void deleteCollaboratorFullInfo(@PathVariable String collaboratorName) {
         collaboratorService.deleteCollaboratorFullInfo(collaboratorName);
+    }
+
+    /**
+     * 关键字搜索：返回所有Collaborator
+     */
+    @GetMapping("/collaborator-options/{str}")
+    public List<Collaborator> getCollaboratorMatched(@PathVariable String str) {
+        return collaboratorService.getCollaboratorMatched(str);
     }
 }

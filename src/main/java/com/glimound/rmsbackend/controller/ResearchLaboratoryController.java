@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/research-laboratories")
 @Slf4j
@@ -57,5 +59,21 @@ public class ResearchLaboratoryController {
     @DeleteMapping("/{labName}")
     public void deleteResearchLaboratoryFullInfo(@PathVariable String labName) {
         researchLaboratoryService.deleteResearchLaboratoryFullInfo(labName);
+    }
+
+    /**
+     * 关键字搜索：返回所有labName
+     */
+    @GetMapping("/lab-name-options/{str}")
+    public List<String> getLabNameMatched(@PathVariable String str) {
+        return researchLaboratoryService.getLabNameMatched(str);
+    }
+
+    /**
+     * 关键字搜索：返回所有未拥有秘书的labName
+     */
+    @GetMapping("/lab-name-with-no-secretary-options/{str}")
+    public List<String> getLabNameWithNoSecretaryMatched(@PathVariable String str) {
+        return researchLaboratoryService.getLabNameWithNoSecretaryMatched(str);
     }
 }

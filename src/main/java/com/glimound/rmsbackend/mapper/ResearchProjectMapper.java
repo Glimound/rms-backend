@@ -2,10 +2,7 @@ package com.glimound.rmsbackend.mapper;
 
 import com.glimound.rmsbackend.pojo.ResearchAchievement;
 import com.glimound.rmsbackend.pojo.ResearchProject;
-import com.glimound.rmsbackend.vo.ResearchAchievementVo;
-import com.glimound.rmsbackend.vo.ResearchProjectVo;
-import com.glimound.rmsbackend.vo.ResearcherProjectVo;
-import com.glimound.rmsbackend.vo.SubtopicVo;
+import com.glimound.rmsbackend.vo.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -56,4 +53,19 @@ public interface ResearchProjectMapper {
      */
     @Select("select superintendent_id from research_project where project_id = #{projectId}")
     Integer selectProjectSuperintendentId(String projectId);
+
+    /**
+     * 关键字搜索：返回所有ProjectId与ProjectName
+     */
+    @Select("select project_id, project_name from research_project where project_id like concat('%',#{str},'%')")
+    List<ProjectOptionVo> selectIdAndNameMatched(String str);
+
+    /**
+     * 关键字搜索：返回属于当前project的科研人员
+     */
+    @Select("select sr.researcher_id, sr.name from research_project r " +
+            "join researcher_project rp on r.project_id = rp.project_id " +
+            "join scientific_researcher sr on rp.researcher_id = sr.researcher_id " +
+            "where r.project_id = #{projectId} and sr.researcher_id like concat('%',#{str},'%')")
+    List<ResearcherOptionVo> selectOwnResearcherMatched(String str, String projectId);
 }

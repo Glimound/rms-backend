@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/office-spaces")
 @Slf4j
@@ -59,4 +61,11 @@ public class OfficeSpaceController {
         officeSpaceService.deleteOfficeSpaceFullInfo(siteId);
     }
 
+    /**
+     * 关键字搜索：返回所有OfficeSpace
+     */
+    @GetMapping("/office-space-options/{str}")
+    public List<OfficeSpace> getOfficeSpaceMatched(@PathVariable String str) {
+        return officeSpaceService.getOfficeSpaceMatched(str);
+    }
 }

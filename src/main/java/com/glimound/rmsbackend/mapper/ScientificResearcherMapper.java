@@ -1,6 +1,7 @@
 package com.glimound.rmsbackend.mapper;
 
 import com.glimound.rmsbackend.pojo.ScientificResearcher;
+import com.glimound.rmsbackend.vo.ResearcherProjectVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -42,4 +43,17 @@ public interface ScientificResearcherMapper {
      */
     @Update("update scientific_researcher set lab_name = null where lab_name = #{labName}")
     void clearResearchersLab(String labName);
+
+    @Select("select researcher_id, name, gender, birth, title, research_direction, lab_name from scientific_researcher " +
+            "where lab_name is null and researcher_id like concat('%',#{str},'%')")
+    List<ScientificResearcher> getFreeResearcherMatched(String str);
+
+    @Select("select researcher_id, name, gender, birth, title, research_direction, lab_name from scientific_researcher " +
+            "where lab_name = #{labName} and researcher_id like concat('%',#{str},'%')")
+    List<ScientificResearcher> getLabOwnResearcherMatched(String str, String labName);
+
+    @Select("select researcher_id, name, gender, birth, title, research_direction, lab_name from scientific_researcher " +
+            "where researcher_id like concat('%',#{str},'%')")
+    List<ResearcherProjectVo> selectResearcherMatched(String str);
+
 }

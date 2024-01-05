@@ -2,7 +2,10 @@ package com.glimound.rmsbackend.service;
 
 import com.glimound.rmsbackend.dto.ScientificResearcherDto;
 import com.glimound.rmsbackend.pojo.ScientificResearcher;
+import com.glimound.rmsbackend.vo.ResearcherProjectVo;
 import com.glimound.rmsbackend.vo.ScientificResearcherListVo;
+
+import java.util.List;
 
 public interface ScientificResearcherService {
     /**
@@ -29,4 +32,19 @@ public interface ScientificResearcherService {
      * 删除科研人员信息
      */
     void deleteScientificResearcherFullInfo(String researcherId);
+
+    /**
+     * 关键字搜索：返回所有未属于任何一个研究室的ScientificResearcher
+     */
+    List<ScientificResearcher> getFreeResearcherMatched(String str);
+
+    /**
+     * 关键字搜索：返回研究室所属的ScientificResearcher
+     */
+    List<ScientificResearcher> getLabOwnResearcherMatched(String str, String labName);
+
+    /**
+     * 关键字搜索：返回所有ScientificResearcher
+     */
+    List<ResearcherProjectVo> getScientificResearcherMatched(String str);
 }
